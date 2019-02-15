@@ -16,7 +16,10 @@ for roots, parents, files in os.walk(source_url_path):
 		img_list_queue = open(filename, "r").readlines()
 		for img_list in img_list_queue:
 			image = img_list.split('\n')[0]
+			print("downloading and saving the image %s"%image)
 			imagename = prefix + '__' + image.split('/')[-1]
 			abs_imagename = os.path.join(image_dst_path, imagename)
-			urllib.request.urlretrieve(image,filename=abs_imagename)
-
+			try:
+				urllib.request.urlretrieve(image,filename=abs_imagename)
+			except Exception:
+				print("cannot download the image %s"%image)
